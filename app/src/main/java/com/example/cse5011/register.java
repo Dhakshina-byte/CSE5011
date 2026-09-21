@@ -6,6 +6,11 @@ import android.widget.EditText;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.Toast;
+
+import com.example.cse5011.DB.dbconnect;
+import com.example.cse5011.model.users;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -34,8 +39,22 @@ public class register extends AppCompatActivity {
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(register.this, MainActivity.class);
-                startActivity(intent);
+               String name = rname.getText().toString();
+               String email = rmail.getText().toString();
+               String password = rpass.getText().toString();
+
+               if(name.isEmpty() || email.isEmpty() || password.isEmpty()){
+                   Toast.makeText(register.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
+               }else{
+                   users user = new users(name, email, password);
+                   dbconnect db = new dbconnect(register.this);
+                   db.addUser(user);
+
+                   Toast.makeText(register.this, "Registered successfully!", Toast.LENGTH_SHORT).show();
+                   Intent intent = new Intent(register.this, MainActivity.class);
+                   startActivity(intent);
+                   finish();
+               }
             }
         });
 
