@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".register">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="398dp"
+        android:layout_height="23dp"
+        android:text="USER NAME" />
+
+    <EditText
+        android:id="@+id/rname"
+        android:layout_width="343dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Username" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="394dp"
+        android:layout_height="21dp"
+        android:text="EMAIL" />
+
+    <EditText
+        android:id="@+id/rmail"
+        android:layout_width="343dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Email" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="390dp"
+        android:layout_height="23dp"
+        android:text="PASSWORD" />
+
+    <EditText
+        android:id="@+id/rpass"
+        android:layout_width="341dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Password" />
+
+    <Button
+        android:id="@+id/registerbtn"
+        android:layout_width="296dp"
+        android:layout_height="wrap_content"
+        android:text="Register" />
+
+    <Button
+        android:id="@+id/backbtn"
+        android:layout_width="296dp"
+        android:layout_height="wrap_content"
+        android:text="Back" />
+</LinearLayout>
