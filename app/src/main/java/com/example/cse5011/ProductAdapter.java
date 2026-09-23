@@ -12,18 +12,39 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import com.example.cse5011.model.Product;
+import com.example.cse5011.model.ProductView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private Context context;
     private List<Product> productList;
+    private List<Product> fullProductList;
 
     public ProductAdapter(Context context, List<Product> productList) {
         this.context = context;
         this.productList = productList;
+        this.fullProductList = new ArrayList<>(productList);
+    }
+
+    public void filter(String text) {
+        productList.clear();
+        if (text == null || text.trim().isEmpty()) {
+            productList.addAll(fullProductList);
+        } else {
+            String query = text.toLowerCase().trim();
+            for (Product item : fullProductList) {
+                if (item.getTitle().toLowerCase().contains(query) ||
+                    item.getDescription().toLowerCase().contains(query)) {
+                    productList.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -42,9 +63,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productPrice.setText(product.getPrice());
         holder.productImage.setImageResource(product.getImageRes());
 
-        holder.viewBtn.setOnClickListener(v -> {
-            Toast.makeText(context, "Selected: " + product.getTitle(), Toast.LENGTH_SHORT).show();
-        });
+        View.OnClickListener openDetails = v -> {
+            Intent intent = new Intent(context, ProductView.class);
+            intent.putExtra("id", product.getId());
+            intent.putExtra("title", product.getTitle());
+            intent.putExtra("description", product.getDescription());
+            intent.putExtra("price", product.getPrice());
+            intent.putExtra("imageRes", product.getImageRes());
+            context.startActivity(intent);
+        };
+
+        holder.viewBtn.setOnClickListener(openDetails);
+        holder.itemView.setOnClickListener(openDetails);
     }
 
     @Override

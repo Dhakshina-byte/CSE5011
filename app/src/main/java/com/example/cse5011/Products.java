@@ -2,8 +2,12 @@ package com.example.cse5011;
 
 import android.os.Bundle;
 
+import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -39,6 +43,27 @@ public class Products extends AppCompatActivity {
 
         adapter = new ProductAdapter(this, productList);
         recyclerView.setAdapter(adapter);
+
+        SearchView searchView = findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.filter(newText);
+                return true;
+            }
+        });
+
+        ImageView profileIcon = findViewById(R.id.profileIcon);
+        ImageView cartIcon = findViewById(R.id.cartIcon);
+
+        profileIcon.setOnClickListener(v -> Toast.makeText(Products.this, "Profile clicked", Toast.LENGTH_SHORT).show());
+        cartIcon.setOnClickListener(v -> Toast.makeText(Products.this, "Cart clicked", Toast.LENGTH_SHORT).show());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

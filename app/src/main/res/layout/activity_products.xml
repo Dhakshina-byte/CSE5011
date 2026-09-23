@@ -7,15 +7,61 @@
     android:layout_height="match_parent"
     tools:context=".Products">
 
+    <!-- Top Action Bar -->
+    <RelativeLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+        <!-- Top Left Profile Icon -->
+        <ImageView
+            android:id="@+id/profileIcon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Profile"
+            android:src="@drawable/outline_account_circle_24"
+            app:tint="?android:attr/textColorPrimary" />
+
+        <!-- App Title in Center -->
+        <TextView
+            android:id="@+id/appTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="PrintExpress"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Top Right Shopping Cart Icon -->
+        <ImageView
+            android:id="@+id/cartIcon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Cart"
+            android:src="@drawable/outline_add_shopping_cart_24"
+            app:tint="?android:attr/textColorPrimary" />
+
+    </RelativeLayout>
+
+    <!-- Search View below Top Bar -->
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:queryHint="Search products"
-        />
+        android:layout_below="@+id/topBar"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="4dp"
+        android:queryHint="Search products" />
 
-
+    <!-- RecyclerView below Search View -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -23,10 +69,6 @@
         android:layout_below="@+id/searchView"
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/recycle_item"
-        />
-
-
-
+        tools:listitem="@layout/recycle_item" />
 
 </RelativeLayout>

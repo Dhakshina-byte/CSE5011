@@ -15,7 +15,7 @@ import java.util.List;
 
 public class dbconnect extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Printexpress";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Users Table
     private static final String TABLE_USERS = "users";
@@ -31,6 +31,15 @@ public class dbconnect extends SQLiteOpenHelper {
     private static final String P_DESC = "description";
     private static final String P_PRICE = "price";
     private static final String P_IMAGE = "image_res";
+
+    // Cart Table
+    private static final String TABLE_CART = "cart";
+    private static final String C_ID = "id";
+    private static final String C_TITLE = "title";
+    private static final String C_PRICE = "price";
+    private static final String C_SIZE = "size";
+    private static final String C_QUANTITY = "quantity";
+    private static final String C_IMAGE = "image_res";
 
     public dbconnect(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,14 +60,24 @@ public class dbconnect extends SQLiteOpenHelper {
                 + P_PRICE + " TEXT,"
                 + P_IMAGE + " INTEGER" + ")";
 
+        String CREATE_CART_TABLE = "CREATE TABLE " + TABLE_CART + "("
+                + C_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + C_TITLE + " TEXT,"
+                + C_PRICE + " TEXT,"
+                + C_SIZE + " TEXT,"
+                + C_QUANTITY + " INTEGER,"
+                + C_IMAGE + " INTEGER" + ")";
+
         db.execSQL(CREATE_USERS_TABLE);
         db.execSQL(CREATE_PRODUCTS_TABLE);
+        db.execSQL(CREATE_CART_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CART);
         onCreate(db);
     }
 
@@ -119,6 +138,35 @@ public class dbconnect extends SQLiteOpenHelper {
         return productList;
     }
 
+    // --- Cart Table Operations ---
+    public void addToCart(String title, String price, String size, int quantity, int imageRes) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(C_TITLE, title);
+        values.put(C_PRICE, price);
+        values.put(C_SIZE, size);
+        values.put(C_QUANTITY, quantity);
+        values.put(C_IMAGE, imageRes);
+        db.insert(TABLE_CART, null, values);
+        db.close();
+    }
+
+    public int getCartCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_CART, null);
+        cursor.moveToFirst();
+        int count = cursor.getInt(0);
+        cursor.close();
+        db.close();
+        return count;
+    }
+
+    public void clearCart() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CART, null, null);
+        db.close();
+    }
+
     // Helper to insert sample data if database is empty
     public void insertSampleProductsIfEmpty() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -129,10 +177,11 @@ public class dbconnect extends SQLiteOpenHelper {
         db.close();
 
         if (count == 0) {
-            addProduct(new Product("Custom T-Shirt", "High quality cotton printed T-shirt", "$15.99", R.drawable.ic_launcher_foreground));
-            addProduct(new Product("Printed Mug", "Ceramic mug with custom print", "$8.99", R.drawable.ic_launcher_foreground));
-            addProduct(new Product("Business Cards", "100 pcs premium matte finish cards", "$12.50", R.drawable.ic_launcher_foreground));
-            addProduct(new Product("Custom Poster", "A3 glossy photo paper print", "$6.00", R.drawable.ic_launcher_foreground));
+            addProduct(new Product("Custom T-Shirt", "High quality cotton printed T-shirt with customizable graphics", "$15.99", R.drawable.ic_launcher_foreground));
+            addProduct(new Product("Printed Ceramic Mug", "11oz ceramic mug with vivid custom color print", "$8.99", R.drawable.ic_launcher_foreground));
+            addProduct(new Product("Business Cards", "100 pcs premium matte finish custom business cards", "$12.50", R.drawable.ic_launcher_foreground));
+            addProduct(new Product("Custom Poster Print", "A3 glossy photo paper high resolution print", "$6.00", R.drawable.ic_launcher_foreground));
+            addProduct(new Product("Custom Hoodie", "Fleece pullover hoodie with custom chest print", "$34.99", R.drawable.ic_launcher_foreground));
         }
     }
 }
