@@ -10,11 +10,17 @@
     android:gravity="center"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
     <TextView
         android:id="@+id/logininfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_width="93dp"
+        android:layout_height="30dp"
+        android:text="PrintExpress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +50,7 @@
 
     <Button
         android:id="@+id/registerbtn"
-        android:layout_width="322dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:text="Register" />
 
