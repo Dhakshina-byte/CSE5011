@@ -177,11 +177,11 @@ public class dbconnect extends SQLiteOpenHelper {
         db.close();
 
         if (count == 0) {
-            addProduct(new Product("Custom T-Shirt", "High quality cotton printed T-shirt with customizable graphics", "$15.99", R.drawable.ic_launcher_foreground));
-            addProduct(new Product("Printed Ceramic Mug", "11oz ceramic mug with vivid custom color print", "$8.99", R.drawable.ic_launcher_foreground));
-            addProduct(new Product("Business Cards", "100 pcs premium matte finish custom business cards", "$12.50", R.drawable.ic_launcher_foreground));
-            addProduct(new Product("Custom Poster Print", "A3 glossy photo paper high resolution print", "$6.00", R.drawable.ic_launcher_foreground));
-            addProduct(new Product("Custom Hoodie", "Fleece pullover hoodie with custom chest print", "$34.99", R.drawable.ic_launcher_foreground));
+            addProduct(new Product("Custom T-Shirt", "High quality cotton printed T-shirt with customizable graphics", "$15.99", R.mipmap.ic_launcher));
+            addProduct(new Product("Printed Ceramic Mug", "11oz ceramic mug with vivid custom color print", "$8.99", R.mipmap.ic_mug));
+            addProduct(new Product("Business Cards", "100 pcs premium matte finish custom business cards", "$12.50", R.mipmap.ic_businesscard));
+            addProduct(new Product("Custom Poster Print", "A3 glossy photo paper high resolution print", "$6.00", R.mipmap.ic_poster));
+            addProduct(new Product("Custom Hoodie", "Fleece pullover hoodie with custom chest print", "$34.99", R.mipmap.ic_hoodie));
         }
     }
 }
